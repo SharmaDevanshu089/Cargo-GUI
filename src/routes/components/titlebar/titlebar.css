@@ -1,0 +1,132 @@
+:root {
+  --cat-mantle: #181825;
+  --cat-surface0: #313244;
+  --cat-subtext: #a6adc8;
+  --cat-text: #cdd6f4;
+  --cat-base: #1e1e2e;
+}
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 40px;
+  width: 100%;
+  padding: 0px 5px;
+  margin: 0;
+  box-sizing: border-box;
+
+  background: var(--cat-mantle);
+  border-bottom: 1px solid var(--cat-surface0);
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+
+  user-select: none;
+  -webkit-user-select: none;
+
+  position: relative;
+  z-index: 9999;
+}
+
+/* ── Left — App identity ── */
+
+.titlebar__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 12px;
+  justify-self: start;
+}
+
+.titlebar__app-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cat-subtext);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ── Right — Actions & Window controls ── */
+
+.titlebar__right {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.titlebar__action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--cat-subtext);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: bold;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.titlebar__action-btn:hover {
+  background: var(--cat-surface0);
+  color: var(--cat-text);
+}
+
+.titlebar__separator {
+  width: 1px;
+  height: 16px;
+  background: var(--cat-surface0);
+  margin: 0 10px;
+}
+
+/* ── Right — Window controls ── */
+
+.titlebar__controls {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 4px;
+  padding-right: 4px;
+}
+
+.titlebar__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  margin: 0;
+
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+
+  color: var(--cat-subtext);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.titlebar__btn:hover {
+  background: var(--cat-surface0);
+  color: var(--cat-text);
+}
+
+.titlebar__btn--close:hover {
+  background: #f38ba8; /* Catppuccin Red */
+  color: var(--cat-base);
+}

@@ -39,9 +39,12 @@ As of right now (19 June 2026) i dont think anyone will ever use this or build t
     3. Run `npm run dev` to start the development server
     4. Run `npm run tauri build` to build the project (This will create an executable in `target/release` directory)
 
-
+## TODO: 
+ -> Get better High Contrast Icon (Current One is temporary).
 
 
 ### Versions
 
-
+ #### Pre 0.1.0
+ -> Implemented a custom Tauri titlebar component styled with Catppuccin Mocha colors and modern SVG window control icons, integrated via root SvelteKit +layout (20 June 2026).
+ -> Replaced the third-party `@el3um4s/svelte-titlebar` library with a custom implementation.
