@@ -1,6 +1,7 @@
 mod config;
 mod error_popup;
 mod startup_check;
+mod settings;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
@@ -28,7 +29,14 @@ pub fn run() {
             }
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![
+            greet,
+            settings::get_app_config,
+            settings::save_app_config,
+            settings::get_system_paths,
+            settings::get_toolchain_info,
+            settings::pick_folder
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

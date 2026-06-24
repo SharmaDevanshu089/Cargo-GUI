@@ -51,6 +51,7 @@ As of right now (19 June 2026) i dont think anyone will ever use this or build t
  -> Started working on the Sidebar Navigation (Projects, Dependencies, Create Project, Settings).
  -> Implemented a pre-launch Rust configuration manager (24 June 2026) that initializes a default configuration file (`app.json`) in the application's AppData directory (`scanDirectory` defaults to the user's Home directory, and `newProjectDirectory` defaults to the Documents directory). It reads and validates the configuration on startup and guarantees that existing user preferences are never overwritten.
  -> Added a pre-launch Rust toolchain validation system (24 June 2026). It automatically checks if `cargo` and `rustc` are installed and available in the system PATH. If either is missing, it displays a native, cross-platform error dialog popup (Windows PowerShell MessageBox, macOS AppleScript Dialog, Linux Zenity/KDialog) and panics to halt application startup. Standalone functions are available for querying both tool versions.
+ -> Implemented an advanced Settings Manager (24 June 2026). Decoupled the frontend state and business logic into `SettingsView.js` using Svelte stores. Created a new `settings.rs` Rust module that handles loading, saving, and path resolution for `app.json`. Integrated the cross-platform `rfd` (Rust File Dialog) crate to enable native, OS-level folder picker dialogs for custom scan and project directory options in the settings UI.
 
 ## Prerequisites
 
