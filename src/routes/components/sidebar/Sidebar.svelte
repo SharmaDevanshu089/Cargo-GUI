@@ -43,6 +43,26 @@
 
   <!-- Middle: Navigation items -->
   <nav class="sidebar__nav">
+    
+    <!-- Action Button: Create Project (Highlighted at the top) -->
+    <button
+      class="sidebar__btn sidebar__btn--action { $currentWindow === 'creator' ? 'sidebar__btn--action-active' : '' }"
+      onclick={() => setWindow('creator')}
+      aria-label="Create Project View"
+    >
+      <span class="sidebar__icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+      </span>
+      Create Project
+    </button>
+
+    <!-- Cohesive layout separator -->
+    <div class="sidebar__nav-separator"></div>
+
+    <!-- Standard navigation items -->
     <button
       class="sidebar__btn { $currentWindow === 'projects' ? 'sidebar__btn--active' : '' }"
       onclick={() => setWindow('projects')}
@@ -68,20 +88,6 @@
         </svg>
       </span>
       Dependencies
-    </button>
-
-    <button
-      class="sidebar__btn { $currentWindow === 'creator' ? 'sidebar__btn--active' : '' }"
-      onclick={() => setWindow('creator')}
-      aria-label="Create Project View"
-    >
-      <span class="sidebar__icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19" />
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
-      </span>
-      Create Project
     </button>
   </nav>
 

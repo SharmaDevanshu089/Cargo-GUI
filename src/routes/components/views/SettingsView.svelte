@@ -8,9 +8,6 @@
     newProjectDirectoryType,
     cargoVersion,
     rustcVersion,
-    autoScan,
-    theme,
-    uiScale,
     saveNotification,
     changeScanDirectoryType,
     changeNewProjectDirectoryType,
@@ -18,18 +15,18 @@
     browseCustomNewProjectDirectory
   } from './SettingsView.js';
 
-  // Load backend configurations and toolchain info when component mounts
+  // Load configuration and toolchain info when component mounts
   onMount(() => {
     loadSettings();
   });
 </script>
 
-<div class="view-container">
+<div class="settings-view">
   <!-- Header -->
   <header class="view-header">
     <div>
       <h2 class="view-title">Settings</h2>
-      <p class="view-subtitle">Configure system directories, user interface preferences, and explore toolchain diagnostics.</p>
+      <p class="view-subtitle">Configure system directories and view toolchain diagnostics.</p>
     </div>
 
     {#if $saveNotification}
@@ -42,198 +39,142 @@
     {/if}
   </header>
 
-  <div class="settings-grid">
-    <!-- Left Column: Preferences -->
-    <div class="settings-column">
-      <!-- General Preferences (Directories) -->
-      <section class="settings-card">
-        <h3 class="settings-card__title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <line x1="9" y1="3" x2="9" y2="21" />
-          </svg>
-          General (Directories)
-        </h3>
-        
-        <div class="settings-card__body">
-          <!-- Scan Directory Dropdown -->
-          <div class="form-group">
-            <label for="scan-dir-type" class="form-label">Projects Scan Directory</label>
-            <select 
-              id="scan-dir-type" 
-              value={$scanDirectoryType} 
-              onchange={(e) => changeScanDirectoryType(e.target.value)} 
-              class="form-select"
-            >
-              <option value="drive">(Entire Drive)</option>
-              <option value="home">Home Folder</option>
-              <option value="documents">Documents Folder</option>
-              <option value="other">Other...</option>
-            </select>
-            <span class="form-help">The primary folder Cargo GUI will scan for crates on startup.</span>
-            
-            <!-- Conditional Custom Scan Path Input & Browse Button -->
-            {#if $scanDirectoryType === 'other'}
-              <div class="custom-path-group fade-in">
-                <div class="browse-input">
-                  <input 
-                    type="text" 
-                    value={$scanDirectory} 
-                    readonly 
-                    class="form-input font-mono" 
-                    title="Custom Scan Directory"
-                  />
-                  <button type="button" class="btn-secondary" onclick={browseCustomScanDirectory}>Browse</button>
-                </div>
-              </div>
-            {/if}
-          </div>
-
-          <!-- New Project Directory Dropdown -->
-          <div class="form-group">
-            <label for="proj-dir-type" class="form-label">Default Project Creation Directory</label>
-            <select 
-              id="proj-dir-type" 
-              value={$newProjectDirectoryType} 
-              onchange={(e) => changeNewProjectDirectoryType(e.target.value)} 
-              class="form-select"
-            >
-              <option value="home">Home Folder</option>
-              <option value="documents">Documents Folder</option>
-              <option value="other">Other...</option>
-            </select>
-            <span class="form-help">The default folder where new Cargo projects will be initialized.</span>
-
-            <!-- Conditional Custom Project Path Input & Browse Button -->
-            {#if $newProjectDirectoryType === 'other'}
-              <div class="custom-path-group fade-in">
-                <div class="browse-input">
-                  <input 
-                    type="text" 
-                    value={$newProjectDirectory} 
-                    readonly 
-                    class="form-input font-mono" 
-                    title="Custom New Project Directory"
-                  />
-                  <button type="button" class="btn-secondary" onclick={browseCustomNewProjectDirectory}>Browse</button>
-                </div>
-              </div>
-            {/if}
-          </div>
-
-          <!-- Auto-scan Startup Toggle -->
-          <div class="toggle-row">
-            <div class="toggle-info">
-              <span class="toggle-label">Auto-scan on Startup</span>
-              <span class="toggle-desc">Scan the default directory automatically when opening the application.</span>
-            </div>
-            <label class="switch" aria-label="Auto-scan on Startup Toggle">
-              <input type="checkbox" bind:checked={$autoScan} />
-              <span class="slider"></span>
-            </label>
-          </div>
-        </div>
-      </section>
-
-      <!-- Appearance Preferences -->
-      <section class="settings-card">
-        <h3 class="settings-card__title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-            <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
-          </svg>
-          Appearance
-        </h3>
-
-        <div class="settings-card__body">
-          <div class="form-group">
-            <label for="color-theme" class="form-label">Color Theme</label>
-            <select id="color-theme" bind:value={$theme} class="form-select">
-              <option value="cat-mocha">Catppuccin Mocha (Default Dark)</option>
-              <option value="cat-macchiato">Catppuccin Macchiato</option>
-              <option value="cat-latte">Catppuccin Latte (Light)</option>
-              <option value="classic-dark">Classic High Contrast Dark</option>
-              <option value="system-default">System Default</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <div class="slider-header">
-              <label for="ui-scale" class="form-label">UI Scale</label>
-              <span class="slider-value">{$uiScale}%</span>
-            </div>
-            <input 
-              type="range" 
-              id="ui-scale"
-              min="80" 
-              max="120" 
-              step="5" 
-              bind:value={$uiScale} 
-              class="form-range" 
-            />
-            <span class="form-help">Adjust application interface size.</span>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- Right Column: System Diagnostics -->
-    <div class="settings-column">
-      <section class="settings-card settings-card--diagnostics">
-        <h3 class="settings-card__title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="16" x2="12" y2="12" />
-            <line x1="12" y1="8" x2="12.01" y2="8" />
-          </svg>
-          System Diagnostics
-        </h3>
-        
-        <div class="settings-card__body">
-          <p class="diagnostics-intro">Cargo GUI relies on your local Rust toolchain. Below is your active environment info.</p>
+  <!-- Linear Scrollable Layout -->
+  <div class="settings-layout">
+    
+    <!-- Section 1: Directories -->
+    <section class="settings-section">
+      <h3 class="settings-section__title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <line x1="9" y1="3" x2="9" y2="21" />
+        </svg>
+        Directories
+      </h3>
+      
+      <div class="settings-section__content">
+        <!-- Scan Directory Dropdown -->
+        <div class="form-group">
+          <label for="scan-dir-type" class="form-label">Projects Scan Directory</label>
+          <select 
+            id="scan-dir-type" 
+            value={$scanDirectoryType} 
+            onchange={(e) => changeScanDirectoryType(e.target.value)} 
+            class="form-select"
+          >
+            <option value="drive">(Entire Drive)</option>
+            <option value="home">Home Folder</option>
+            <option value="documents">Documents Folder</option>
+            <option value="other">Other...</option>
+          </select>
+          <span class="form-help">The primary folder Cargo GUI will scan for crates on startup.</span>
           
-          <table class="diagnostics-table">
-            <tbody>
-              <tr>
-                <td class="diagnostic-name">Cargo Version</td>
-                <td class="diagnostic-value font-mono">{$cargoVersion}</td>
-              </tr>
-              <tr>
-                <td class="diagnostic-name">Rustc Version</td>
-                <td class="diagnostic-value font-mono">{$rustcVersion}</td>
-              </tr>
-              <tr>
-                <td class="diagnostic-name">Tauri Framework</td>
-                <td class="diagnostic-value font-mono">v2.0.0 (Win32 + Webview2)</td>
-              </tr>
-              <tr>
-                <td class="diagnostic-name">Frontend System</td>
-                <td class="diagnostic-value font-mono">Svelte v5.56.3 + Vite v8.0.16</td>
-              </tr>
-              <tr>
-                <td class="diagnostic-name">Host OS</td>
-                <td class="diagnostic-value font-mono">Windows 11 Home (Build 22631)</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="diagnostics-status">
-            <span class="status-indicator">All tools connected</span>
-          </div>
+          <!-- Conditional Custom Scan Path Picker -->
+          {#if $scanDirectoryType === 'other'}
+            <div class="custom-path-group fade-in">
+              <div class="browse-input">
+                <input 
+                  type="text" 
+                  value={$scanDirectory} 
+                  readonly 
+                  class="form-input font-mono" 
+                  title="Custom Scan Directory"
+                />
+                <button type="button" class="btn-secondary" onclick={browseCustomScanDirectory}>Browse</button>
+              </div>
+            </div>
+          {/if}
         </div>
-      </section>
-    </div>
+
+        <!-- New Project Directory Dropdown -->
+        <div class="form-group">
+          <label for="proj-dir-type" class="form-label">Default Project Creation Directory</label>
+          <select 
+            id="proj-dir-type" 
+            value={$newProjectDirectoryType} 
+            onchange={(e) => changeNewProjectDirectoryType(e.target.value)} 
+            class="form-select"
+          >
+            <option value="home">Home Folder</option>
+            <option value="documents">Documents Folder</option>
+            <option value="other">Other...</option>
+          </select>
+          <span class="form-help">The default folder where new Cargo projects will be initialized.</span>
+
+          <!-- Conditional Custom Project Path Picker -->
+          {#if $newProjectDirectoryType === 'other'}
+            <div class="custom-path-group fade-in">
+              <div class="browse-input">
+                <input 
+                  type="text" 
+                  value={$newProjectDirectory} 
+                  readonly 
+                  class="form-input font-mono" 
+                  title="Custom New Project Directory"
+                />
+                <button type="button" class="btn-secondary" onclick={browseCustomNewProjectDirectory}>Browse</button>
+              </div>
+            </div>
+          {/if}
+        </div>
+
+        <!-- Forced Auto-scan Startup Toggle -->
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <span class="toggle-label">Auto-scan on Startup</span>
+            <span class="toggle-desc">Scan the default directory automatically when opening the application. (Always Active)</span>
+          </div>
+          <label class="switch switch--disabled" aria-label="Auto-scan on Startup Toggle (Forced On)">
+            <input type="checkbox" checked disabled />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider line -->
+    <hr class="settings-divider" />
+
+    <!-- Section 2: System Diagnostics -->
+    <section class="settings-section">
+      <h3 class="settings-section__title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="16" x2="12" y2="12" />
+          <line x1="12" y1="8" x2="12.01" y2="8" />
+        </svg>
+        System Diagnostics
+      </h3>
+      
+      <div class="settings-section__content">
+        <p class="diagnostics-intro">Cargo GUI relies on your local Rust toolchain. Below is your active compiler environment info.</p>
+        
+        <table class="diagnostics-table">
+          <tbody>
+            <tr>
+              <td class="diagnostic-name">Cargo Version</td>
+              <td class="diagnostic-value font-mono">{$cargoVersion}</td>
+            </tr>
+            <tr>
+              <td class="diagnostic-name">Rustc Version</td>
+              <td class="diagnostic-value font-mono">{$rustcVersion}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </div>
 </div>
 
 <style>
-  .view-container {
+  .settings-view {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 32px;
     height: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 800px;
+    margin: 0;
   }
 
   /* Header */
@@ -272,60 +213,45 @@
     animation: fadeIn 0.2s ease-out;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Settings Grid */
-  .settings-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  @media (min-width: 900px) {
-    .settings-grid {
-      grid-template-columns: 1.1fr 0.9fr;
-    }
-  }
-
-  .settings-column {
+  /* Layout list */
+  .settings-layout {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 28px;
+    padding: 8px 0;
   }
 
-  .settings-card {
-    background-color: var(--cat-mantle);
-    border: 1px solid var(--cat-surface0);
-    border-radius: 12px;
-    padding: 24px;
+  .settings-divider {
+    border: none;
+    border-top: 1px solid rgba(49, 50, 68, 0.4);
+    margin: 8px 0;
+    width: 100%;
+    max-width: 540px;
+  }
+
+  /* Flat Sections */
+  .settings-section {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
   }
 
-  .settings-card__title {
-    font-size: 16px;
+  .settings-section__title {
+    font-size: 15px;
     font-weight: 600;
     color: var(--cat-text);
     margin: 0;
     display: flex;
     align-items: center;
     gap: 10px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(49, 50, 68, 0.5);
+    color: #b4befe; /* Lavender accent for section titles */
   }
 
-  .settings-card__title svg {
-    color: #b4befe;
-  }
-
-  .settings-card__body {
+  .settings-section__content {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding-left: 26px; /* indent content slightly under title */
   }
 
   /* Form Elements */
@@ -333,6 +259,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    max-width: 540px;
   }
 
   .form-label {
@@ -343,7 +270,7 @@
 
   .form-input, .form-select {
     padding: 10px 14px;
-    background-color: var(--cat-base);
+    background-color: var(--cat-mantle); /* Darker background for contrast against page base */
     border: 1px solid var(--cat-surface0);
     border-radius: 8px;
     color: var(--cat-text);
@@ -407,10 +334,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--cat-base);
+    background-color: var(--cat-mantle); /* Darker background for contrast against page base */
     border: 1px solid var(--cat-surface0);
     padding: 14px 16px;
     border-radius: 8px;
+    max-width: 540px;
   }
 
   .toggle-info {
@@ -471,65 +399,31 @@
     border-radius: 50%;
   }
 
-  input:checked + .slider {
-    background-color: #b4befe;
+  /* Disabled State (Forced On) */
+  .switch--disabled .slider {
+    background-color: rgba(180, 190, 254, 0.4); /* Faded lavender */
+    cursor: not-allowed;
   }
 
-  input:checked + .slider:before {
+  .switch--disabled .slider:before {
     transform: translateX(20px);
-    background-color: #11111b;
+    background-color: var(--cat-mantle);
   }
 
-  /* Range Slider */
-  .slider-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .slider-value {
-    font-size: 12px;
-    font-weight: 600;
-    color: #b4befe;
-  }
-
-  .form-range {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 6px;
-    border-radius: 3px;
-    background: var(--cat-base);
-    outline: none;
-    margin: 8px 0;
-  }
-
-  .form-range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #b4befe;
-    cursor: pointer;
-    transition: transform 0.1s ease;
-  }
-
-  .form-range::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-  }
-
-  /* Diagnostics Column */
+  /* Diagnostics Section */
   .diagnostics-intro {
     font-size: 13px;
     color: var(--cat-subtext);
     line-height: 1.5;
     margin: 0;
+    max-width: 540px;
   }
 
   .diagnostics-table {
     width: 100%;
+    max-width: 540px;
     border-collapse: collapse;
-    margin: 10px 0;
+    margin-top: 6px;
   }
 
   .diagnostics-table td {
@@ -545,7 +439,7 @@
   .diagnostic-name {
     color: var(--cat-subtext);
     font-weight: 500;
-    width: 35%;
+    width: 30%;
   }
 
   .diagnostic-value {
@@ -557,31 +451,13 @@
     word-break: break-all;
   }
 
-  .diagnostics-status {
-    padding-top: 14px;
-    border-top: 1px solid rgba(49, 50, 68, 0.5);
-  }
-
-  .status-indicator {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: #a6e3a1;
-    font-size: 13px;
-    font-weight: 600;
-  }
-
-  .status-indicator::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    background-color: #a6e3a1;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #a6e3a1;
-  }
-
-  /* Transitions */
+  /* Transitions & Animations */
   .fade-in {
     animation: fadeIn 0.2s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(3px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 </style>

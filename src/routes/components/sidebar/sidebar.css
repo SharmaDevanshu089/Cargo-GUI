@@ -50,6 +50,13 @@
   padding: 20px 12px;
 }
 
+/* Spacer separator between action button and regular nav tabs */
+.sidebar__nav-separator {
+  height: 1px;
+  background-color: rgba(49, 50, 68, 0.3);
+  margin: 8px 12px 14px 12px;
+}
+
 .sidebar__btn {
   display: flex;
   align-items: center;
@@ -78,6 +85,36 @@
   background-color: rgba(180, 190, 254, 0.1); /* Catppuccin Lavender transparent background */
   color: #b4befe; /* Catppuccin Lavender text */
   font-weight: 600;
+}
+
+/* ── Highlighted Action Button (Create Project) ── */
+.sidebar__btn--action {
+  background-color: rgba(180, 190, 254, 0.06);
+  border: 1px solid rgba(180, 190, 254, 0.25);
+  color: #b4befe;
+  font-weight: 600;
+  box-sizing: border-box;
+  padding: 11px 14px; /* slightly taller for prominence */
+}
+
+.sidebar__btn--action:hover {
+  background-color: #b4befe;
+  border-color: #b4befe;
+  color: #11111b; /* Dark crust text on hover */
+  box-shadow: 0 4px 12px rgba(180, 190, 254, 0.2);
+  transform: translateY(-1px);
+}
+
+.sidebar__btn--action:active {
+  transform: translateY(0);
+}
+
+.sidebar__btn--action-active {
+  background-color: #b4befe;
+  border-color: #b4befe;
+  color: #11111b;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(180, 190, 254, 0.15);
 }
 
 .sidebar__icon {
