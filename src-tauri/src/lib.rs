@@ -1,4 +1,6 @@
 mod config;
+mod error_popup;
+mod startup_check;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
@@ -8,6 +10,9 @@ fn greet(name: &str) -> String {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    // Sabse pehle, check karo ki user ke paas Rust (rustc aur cargo) installed hai ya nahi!
+    startup_check::check_toolchain_on_startup();
+
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .setup(|app| {

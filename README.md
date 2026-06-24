@@ -50,6 +50,13 @@ As of right now (19 June 2026) i dont think anyone will ever use this or build t
  -> Replaced the third-party `@el3um4s/svelte-titlebar` library with a custom implementation.
  -> Started working on the Sidebar Navigation (Projects, Dependencies, Create Project, Settings).
  -> Implemented a pre-launch Rust configuration manager (24 June 2026) that initializes a default configuration file (`app.json`) in the application's AppData directory (`scanDirectory` defaults to the user's Home directory, and `newProjectDirectory` defaults to the Documents directory). It reads and validates the configuration on startup and guarantees that existing user preferences are never overwritten.
+ -> Added a pre-launch Rust toolchain validation system (24 June 2026). It automatically checks if `cargo` and `rustc` are installed and available in the system PATH. If either is missing, it displays a native, cross-platform error dialog popup (Windows PowerShell MessageBox, macOS AppleScript Dialog, Linux Zenity/KDialog) and panics to halt application startup. Standalone functions are available for querying both tool versions.
+
+## Prerequisites
+
+Cargo GUI relies on a local Rust installation to function.
+*   **Rustc & Cargo**: Must be installed and configured in your system's `PATH` environment variable. If either tool is missing, the application will display a native, cross-platform toolchain error popup on startup and halt immediately.
+*   **Installation**: You can install the toolchain from the official site [rustup.rs](https://rustup.rs).
 
 ## Configuration
 
