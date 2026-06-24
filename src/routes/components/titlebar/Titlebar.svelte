@@ -31,11 +31,8 @@
   data-tauri-drag-region
   ondblclick={handleDoubleClick}
 >
-  <!-- Left: App identity -->
+  <!-- Left: App identity drag region -->
   <div class="titlebar__left" data-tauri-drag-region>
-    <div class="titlebar__app-icon" data-tauri-drag-region>
-      Cargo GUI
-    </div>
   </div>
 
   <!-- Right: Window controls -->

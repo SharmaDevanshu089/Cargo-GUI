@@ -10,12 +10,12 @@
 </script>
 
 <div class="page-shell">
-  <!-- Titlebar spans full width at the top -->
-  <Titlebar />
+  <!-- Sidebar on the left, spanning the full height -->
+  <Sidebar />
 
-  <!-- Main workspace layout: Sidebar + Content -->
-  <div class="workspace">
-    <Sidebar />
+  <!-- Main layout on the right: Titlebar on top, workspace below -->
+  <div class="main-layout">
+    <Titlebar />
 
     <main class="workspace__content">
       {#if $currentWindow === 'projects'}
@@ -42,18 +42,18 @@
 <style>
   .page-shell {
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* Sidebar on left, content on right */
     height: 100vh;
     width: 100vw;
     overflow: hidden;
     background-color: var(--cat-base, #1e1e2e);
   }
 
-  .workspace {
+  .main-layout {
     display: flex;
+    flex-direction: column; /* Titlebar on top, active view on bottom */
     flex: 1;
-    width: 100%;
-    height: calc(100vh - 40px); /* subtract titlebar height */
+    height: 100%;
     overflow: hidden;
   }
 
