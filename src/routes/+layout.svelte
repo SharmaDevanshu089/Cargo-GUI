@@ -1,14 +1,9 @@
 <script>
-  import Titlebar from './components/titlebar/Titlebar.svelte';
-  
   let { children } = $props();
 </script>
 
 <div class="app-container">
-  <Titlebar />
-  <main class="content-container">
-    {@render children()}
-  </main>
+  {@render children()}
 </div>
 
 <style>
@@ -24,14 +19,8 @@
   }
 
   .app-container {
-    display: flex;
-    flex-direction: column;
     height: 100vh;
     width: 100vw;
-  }
-
-  .content-container {
-    flex: 1;
-    overflow: auto;
+    overflow: hidden;
   }
 </style>

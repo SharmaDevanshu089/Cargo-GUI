@@ -1,0 +1,129 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 240px;
+  height: 100%;
+  background-color: var(--cat-mantle);
+  border-right: 1px solid var(--cat-surface0);
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ── Top section: Logo/Branding ── */
+.sidebar__top {
+  padding: 24px 20px;
+  border-bottom: 1px solid rgba(49, 50, 68, 0.5);
+}
+
+.sidebar__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cat-text);
+  letter-spacing: 0.5px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar__title-logo {
+  color: #b4befe; /* Lavender accent for logo icon */
+}
+
+.sidebar__subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--cat-subtext);
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+/* ── Middle section: Navigation list ── */
+.sidebar__nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 12px;
+}
+
+.sidebar__btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--cat-subtext);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.sidebar__btn:hover {
+  background-color: var(--cat-surface0);
+  color: var(--cat-text);
+}
+
+.sidebar__btn--active {
+  background-color: rgba(180, 190, 254, 0.1); /* Catppuccin Lavender transparent background */
+  color: #b4befe; /* Catppuccin Lavender text */
+  font-weight: 600;
+}
+
+.sidebar__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ── Bottom section: Settings & Links ── */
+.sidebar__bottom {
+  padding: 16px 12px;
+  border-top: 1px solid rgba(49, 50, 68, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar__links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 12px;
+}
+
+.sidebar__link {
+  font-size: 11px;
+  color: var(--cat-subtext);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+}
+
+.sidebar__link:hover {
+  color: var(--cat-text);
+  text-decoration: underline;
+}
+
+.sidebar__separator {
+  color: var(--cat-surface0);
+  font-size: 11px;
+}
